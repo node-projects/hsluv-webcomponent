@@ -542,9 +542,21 @@ export class HsluvComponent extends BaseCustomWebComponentConstructorAppend {
         </div>`;
 
     static readonly properties = {
+        value: String
     }
 
-    value: any;
+    private _value: string;
+    get value() { return this._value; }
+    set value(value: string) {
+        this._value = value;
+        if (this._elInputHex?.value != value) {
+            this._elInputHex.value = value;
+            this._parseHexInput();
+        }
+    }
+
+    private _elInputHex: HTMLInputElement;
+    private _parseHexInput: () => void;
 
     constructor() {
         super();
@@ -566,6 +578,7 @@ export class HsluvComponent extends BaseCustomWebComponentConstructorAppend {
         const elSliderS = <HTMLInputElement>elControlS.getElementsByClassName('range-slider')[0];
         const elSliderH = <HTMLInputElement>elControlH.getElementsByClassName('range-slider')[0];
         const elInputHex = <HTMLInputElement>picker.getElementsByClassName('input-hex')[0];
+        this._elInputHex = elInputHex;
         const elCounterHue = <HTMLInputElement>picker.getElementsByClassName('counter-hue')[0];
         const elCounterSaturation = <HTMLInputElement>picker.getElementsByClassName('counter-saturation')[0];
         const elCounterLightness = <HTMLInputElement>picker.getElementsByClassName('counter-lightness')[0];
@@ -588,22 +601,22 @@ export class HsluvComponent extends BaseCustomWebComponentConstructorAppend {
         });
 
         elCounterHue.addEventListener('input', () => {
-            if (stringIsNumberWithinRange(this.value, 0, 360)) {
-                H = parseFloat(this.value);
+            if (stringIsNumberWithinRange(elCounterHue.value, 0, 360)) {
+                H = parseFloat(elCounterHue.value);
                 redrawAfterUpdatingVariables(true, false, false, symSliderHueCounterText);
             }
         });
 
         elCounterSaturation.addEventListener('input', () => {
-            if (stringIsNumberWithinRange(this.value, 0, 100)) {
-                S = parseFloat(this.value);
+            if (stringIsNumberWithinRange(elCounterSaturation.value, 0, 100)) {
+                S = parseFloat(elCounterSaturation.value);
                 redrawAfterUpdatingVariables(false, true, false, symSliderSaturationCounterText);
             }
         });
 
         elCounterLightness.addEventListener('input', () => {
-            if (stringIsNumberWithinRange(this.value, 0, 100)) {
-                L = parseFloat(this.value);
+            if (stringIsNumberWithinRange(elCounterLightness.value, 0, 100)) {
+                L = parseFloat(elCounterLightness.value);
                 redrawAfterUpdatingVariables(false, false, true, symSliderLightnessCounterText);
             }
         });
@@ -795,6 +808,7 @@ export class HsluvComponent extends BaseCustomWebComponentConstructorAppend {
             sliderL.setBackground(lightnessColors);
         }
 
+        let self = this;
         function redrawAfterUpdatingVariables(changeH, changeS, changeL, triggeredBySym) {
             if (changeL) {
                 contrasting = L > 70 ? '#1b1b1b' : '#ffffff';
@@ -808,8 +822,10 @@ export class HsluvComponent extends BaseCustomWebComponentConstructorAppend {
             conv.hsluvToHex();
             const hex = conv.hex;
             elSwatch.style.backgroundColor = hex;
-            if (triggeredBySym !== symHexText)
+            if (triggeredBySym !== symHexText) {
                 elInputHex.value = hex;
+                self.value = hex;
+            }
             if (changeL)
                 redrawCanvas();
             if (changeH && triggeredBySym !== symSliderHue)
@@ -826,7 +842,7 @@ export class HsluvComponent extends BaseCustomWebComponentConstructorAppend {
                 elCounterLightness.value = L.toFixed(1);
         }
 
-        elInputHex.addEventListener('input', function () {
+        let parseHexInput = () => {
             const match = elInputHex.value.match(/^\s*#?([\da-f]{6})\s*$/i);
             if (match) {
                 const matchedHexDigits = match[1];
@@ -837,7 +853,9 @@ export class HsluvComponent extends BaseCustomWebComponentConstructorAppend {
                 L = conv.hsluv_l;
                 redrawAfterUpdatingVariables(true, true, true, symHexText);
             }
-        });
+        }
+        elInputHex.addEventListener('input', parseHexInput);
+        this._parseHexInput = parseHexInput;
 
         redrawAfterUpdatingVariables(true, true, true, null);
     }
