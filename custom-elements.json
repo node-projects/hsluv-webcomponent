@@ -1,0 +1,30 @@
+{
+    "schemaVersion": "1.0.0",
+    "readme": "README.md",
+    "modules": [
+        {
+            "kind": "javascript-module",
+            "path": "dist/HsluvComponent.js",
+            "declarations": [
+                {
+                    "kind": "class",
+                    "name": "HsluvComponent",
+                    "superclass": {
+                        "name": "BaseCustomWebComponentConstructorAppend"
+                    },
+                    "customElement": true
+                }
+            ],
+            "exports": [
+                {
+                    "kind": "custom-element-definition",
+                    "name": "node-projects-hsluv",
+                    "declaration": {
+                        "name": "HsluvComponent",
+                        "module": "dist/HsluvComponent.js"
+                    }
+                }
+            ]
+        }
+    ]
+}
