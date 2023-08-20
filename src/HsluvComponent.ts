@@ -81,7 +81,7 @@ function getPickerGeometry(lightness) {
     let intersections = [];
     let intersectionPoint1;
     let intersectionPointAngle;
-    let relativeAngle;
+    //let relativeAngle;
     let _g2 = 0;
     let _g3 = numLines - 1;
     while (_g2 < _g3) {
@@ -91,7 +91,7 @@ function getPickerGeometry(lightness) {
             let i2 = _g++;
             intersectionPoint1 = intersectLineLine(lines[i1], lines[i2]);
             intersectionPointAngle = angleFromOrigin(intersectionPoint1);
-            relativeAngle = intersectionPointAngle - startingAngle;
+            //relativeAngle = intersectionPointAngle - startingAngle;
             intersections.push({
                 line1: i1,
                 line2: i2,
