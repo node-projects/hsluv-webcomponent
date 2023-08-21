@@ -307,30 +307,15 @@ export class HsluvComponent extends BaseCustomWebComponentConstructorAppend {
             box-sizing: border-box;
 
             background-color: #1b1b1b;
-            color: #999;
+
+            --text-color: #888;
+            --slider-handle-color: white;
+            --outer-circle-color: white;
         }
         :host([hidden]) {
             display: none
         }
 
-        a {
-            color: #0055B0;
-        }
-        
-        body.dark {
-           
-        }
-        
-        body.dark a {
-            color: #5af;
-        }
-        
-        sub {
-            font-size: 0.7em;
-            line-height: 0;
-            text-decoration: none !important;
-        }
-        
         /* hide spinners on <input type="number"> */
         input[type=number]::-webkit-outer-spin-button,
         input[type=number]::-webkit-inner-spin-button {
@@ -363,23 +348,6 @@ export class HsluvComponent extends BaseCustomWebComponentConstructorAppend {
             font-weight: bold;
         }
         
-        div.demo {
-            margin: 0.2em;
-        }
-        
-        div.demo button {
-            margin-bottom: 10px;
-            width: 100%;
-        }
-        
-        div.demo div {
-            color: white;
-            height: 2em;
-            line-height: 2em;
-            padding-left: 0.3em;
-            padding-right: 0.3em;
-        }
-        
         #display {
             position: relative;
             width: 400px;
@@ -400,13 +368,13 @@ export class HsluvComponent extends BaseCustomWebComponentConstructorAppend {
             margin: 0;
             height: 22px;
             background: transparent;
-            color: #888;
             outline: none;
             border: 1px solid #333;
             border-radius: 0;
             text-align: right;
             width: 100%;
             padding: 0 5px;
+            color: var(--text-color);
         }
         
         #picker td.cell-input.cell-input-hex input {
@@ -426,7 +394,7 @@ export class HsluvComponent extends BaseCustomWebComponentConstructorAppend {
         }
         
         #picker table td.picker-label {
-            color: #eeeeee;
+            color: var(--text-color);
             width: 30px;
             line-height: 22px;
         }
@@ -454,54 +422,10 @@ export class HsluvComponent extends BaseCustomWebComponentConstructorAppend {
             left: -5px;
             height: 100%;
             cursor: default;
-            border: 2px solid #fff;
+            border: 2px solid var(--slider-handle-color);
             touch-action: pan-y;
             -ms-touch-action: pan-y;
-        }
-        
-        #header {
-            background-color: rgba(0, 0, 0, 0.8);
-            padding-top: 1rem;
-            padding-bottom: 1rem;
-            line-height: 26px;
-            border-bottom: 1px #080808;
-        }
-        
-        #header .github-button {
-            float: right;
-            height: 20px;
-            margin-top: 3px;
-        }
-        
-        #header a {
-            color: #999999;
-            text-decoration: none;
-            padding-left: 1rem;
-            padding-right: 1rem;
-            vertical-align: top;
-        }
-        
-        #header a:hover {
-            color: white;
-        }
-        
-        #header a.logo {
-            font-size: 2rem;
-            color: white;
-        }
-        
-        /* collapse navbar */
-        @media (max-width: 1000px) {
-            #header a {
-                display: block;
-            }
-            #header a.logo {
-                margin-bottom: 1rem;
-            }
-        }
-        
-        
-        `;
+        }`;
 
     static override readonly template = html`
         <div id="picker">
@@ -655,7 +579,7 @@ export class HsluvComponent extends BaseCustomWebComponentConstructorAppend {
         outerCircle.setAttribute('cy', centerPoint.y.toString());
         outerCircle.setAttribute('r', outerCircleRadiusPixel.toString());
         outerCircle.setAttribute('fill', 'none');
-        outerCircle.setAttribute('stroke', 'white');
+        outerCircle.setAttribute('stroke', 'var(--outer-circle-color)');
         outerCircle.setAttribute('stroke-width', '1');
         elSvg.appendChild(outerCircle);
 
