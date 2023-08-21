@@ -9,7 +9,7 @@ so that they would be usable in web-component-designer: https://node-projects.gi
 
 # sample in web-component-designer
 
-[Sample in Designer](https://node-projects.github.io/web-component-designer-demo/index.html?loadAllImports&npm=@node-projects/hsluv-webcomponent&html=)
+[Sample in Designer](https://node-projects.github.io/web-component-designer-demo/index.html?loadAllImports&npm=@node-projects/hsluv-webcomponent&html=%3Cnode-projects-hsluv%20style=%22width:439px;height:677px;position:absolute;left:19px;top:17px;%22%3E%3C/node-projects-hsluv%3E)
 
 # included components
 
