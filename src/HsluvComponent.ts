@@ -476,6 +476,7 @@ export class HsluvComponent extends BaseCustomWebComponentConstructorAppend {
         if (this._elInputHex?.value != value) {
             this._elInputHex.value = value;
             this._parseHexInput();
+            this.dispatchEvent(new CustomEvent("value-changed", { detail: { value } }));
         }
     }
 
